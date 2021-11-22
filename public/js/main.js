@@ -1,11 +1,14 @@
 //chat form where the user inputs message to send
 const chatForm = document.getElementById('chat-form');
+const chatMessages = document.querySelector('.chat-messages');
 const socket = io();
 
 //this will be catched whenever the server sends any message
 socket.on('message', message => {
     console.log(message);
     outputMessage(message);
+    //focus on the last message sent
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
 chatForm.addEventListener('submit', e => {
@@ -16,6 +19,11 @@ chatForm.addEventListener('submit', e => {
 
     //send message to server
     socket.emit('chatMessage', message);
+
+    //clear message input
+    e.target.elements.msg.value = '';
+    e.target.elements.msg.focus();
+
 });
 
 //output message to DOM

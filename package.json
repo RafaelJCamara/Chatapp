@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "socket.io": "^4.4.0"
+  },
+  "name": "tellme",
+  "version": "1.0.0",
+  "description": "realtime chat app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RafaelJCamara/TellMe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RafaelJCamara/TellMe/issues"
+  },
+  "homepage": "https://github.com/RafaelJCamara/TellMe#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

@@ -1,6 +1,8 @@
 //chat form where the user inputs message to send
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
+const roomName = document.getElementById('room-name');
+const userList = document.getElementById('users');
 const socket = io();
 
 //Get username and room from URL
@@ -10,6 +12,13 @@ const { username, room } = Qs.parse(location.search, {
 
 //Join chatroom
 socket.emit('joinRoom', { username, room });
+
+//Received whenever we get any information about a room and its users
+//this might be whenever a user logins to a room or whenever someone leaves such room
+socket.on('roomUsers', ({ room, users }) => {
+    outputRoomName(room);
+    outputUsers(users);
+});
 
 //this will be catched whenever the server sends any message
 socket.on('message', message => {
@@ -43,4 +52,16 @@ function outputMessage(message) {
       ${message.text}
     </p>`;
     document.querySelector('.chat-messages').appendChild(div);
+}
+
+//Add room name to DOM
+function outputRoomName(room) {
+    roomName.innerText = room;
+}
+
+//Add current users in a room to the DOM
+function outputUsers(users) {
+    userList.innerHTML = `
+        ${users.map(user => `<li>${user.username}</li>`).join('')}
+    `;
 }
